@@ -1,5 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Map, GoogleApiWrapper } from 'google-maps-react'
+
+const mapStyles = {
+  width: 100%,
+  height: 100%
+}
+
+const mapKey = process.env.MAPS_API_KEY
 
 export class Map extends React.Component {
   loadMap () {
@@ -23,3 +31,7 @@ export class Map extends React.Component {
     }
   }
 }
+
+export default GoogleApiWrapper({
+  apiKey: (mapKey)
+})(MapContainer)
