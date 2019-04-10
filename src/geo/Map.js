@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Map, GoogleApiWrapper } from 'google-maps-react'
+import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react'
 
 const mapStyles = {
   width: 100%,
@@ -10,6 +10,11 @@ const mapStyles = {
 const mapKey = process.env.MAPS_API_KEY
 
 export class Map extends React.Component {
+  state = {
+    showInfoWindow: false, // show or hide the info window
+    activeMarker: {}, // 
+    selectedPlace: {}
+  }
   loadMap () {
     if (this.props && this.props.google) {
       // google is available
