@@ -1,0 +1,46 @@
+$success: #c7f282;
+$warning: #f1e681;
+$error: #f08181;
+$charcoal: #ccc;
+
+body {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+}
+
+.panel {
+  background-color: #dedede;
+  border: thin solid #cdcdcd;
+  border-radius: 3px;
+  padding: 2%;
+  text-align: center;
+  margin: 5px;
+
+  a.btn {
+    margin: 5px 0;
+    width: 80%;
+  }
+}
+
+.userMessage {
+  width: 90%;
+  height: 4rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5% auto 0;
+  max-width: 600px;
+
+  h3,
+  input {
+    margin-bottom: 5%;
+  }
+
+  button {
+    align-self: flex-end;
+    max-width: 200px;
+  }
+}
