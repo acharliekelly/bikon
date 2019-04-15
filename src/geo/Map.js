@@ -1,7 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react'
+
+const mapStyles = {
+  width: 100%,
+  height: 100%
+}
+
+const mapKey = process.env.MAPS_API_KEY
 
 export class Map extends React.Component {
+  state = {
+    showInfoWindow: false, // show or hide the info window
+    activeMarker: {}, // 
+    selectedPlace: {}
+  }
   loadMap () {
     if (this.props && this.props.google) {
       // google is available
@@ -23,3 +36,7 @@ export class Map extends React.Component {
     }
   }
 }
+
+export default GoogleApiWrapper({
+  apiKey: (mapKey)
+})(MapContainer)
