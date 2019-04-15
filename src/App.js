@@ -15,6 +15,8 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
 import Reports from './reports/components/Reports'
+import Report from './reports/components/Report'
+import CreateReport from './reports/components/CreateReport'
 
 class App extends Component {
   constructor () {
@@ -65,11 +67,15 @@ class App extends Component {
             <AuthenticatedRoute user={user} path='/change-password' render={() => (
               <ChangePassword alert={this.alert} user={user} />
             )} />
-            <Route path='/reports' component={Reports} />
-            <Route path='/my-reports' component={} />
-            <Route path='/new-report' component={} />
-            <Route path='/filter' component={} />
-            <Route path='/plan-route' component={} />
+            <Route path='/reports' render={() => (
+              <Reports alert={this.alert} user={user} />
+            )} />
+            <Route path='/my-reports' render={() => (
+              <Report alert={this.alert} user={user} />
+            )} />
+            <Route path='/new-report' render={() => (
+              <CreateReport alert={this.alert} user={user} />
+            )} />
           </Col>
         </Row>
       </Container>
