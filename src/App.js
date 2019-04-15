@@ -7,11 +7,14 @@ import { Container, Row, Col } from 'react-bootstrap'
 import TimedAlert from './layout/alert/TimedAlert'
 import Header from './layout/header/Header'
 import Menu from './layout/menu/Menu'
+
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
+
+import Reports from './reports/components/Reports'
 
 class App extends Component {
   constructor () {
@@ -35,39 +38,41 @@ class App extends Component {
     const { alerts, user } = this.state
 
     return (
-      <React.Fragment>
-        <Container>
-          <Header user={user} />
-          <Row>
-            <Col className="userMessage">
-              {alerts.map((alert, index) => (
-                <TimedAlert key={index} timeout="12000" dismissible
-                  variant={alert.type} message={alert.message} />
-              ))}
-            </Col>
-          </Row>
-          <Row>
-            <Col className="col-4">
-              <Menu user={user} />
-            </Col>
-            <Col className="col-8">
-              { /* content */ }
-            </Col>
-          </Row>
-        </Container>
-        <Route path='/sign-up' render={() => (
-          <SignUp alert={this.alert} setUser={this.setUser} />
-        )} />
-        <Route path='/sign-in' render={() => (
-          <SignIn alert={this.alert} setUser={this.setUser} />
-        )} />
-        <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-          <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
-        )} />
-        <AuthenticatedRoute user={user} path='/change-password' render={() => (
-          <ChangePassword alert={this.alert} user={user} />
-        )} />
-      </React.Fragment>
+      <Container>
+        <Header user={user} />
+        <Row>
+          <Col className="userMessage">
+            {alerts.map((alert, index) => (
+              <TimedAlert key={index} timeout="2000" dismissible
+                variant={alert.type} message={alert.message} />
+            ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col className="col-4">
+            <Menu user={user} />
+          </Col>
+          <Col className="col-8">
+            <Route path='/sign-up' render={() => (
+              <SignUp alert={this.alert} setUser={this.setUser} />
+            )} />
+            <Route path='/sign-in' render={() => (
+              <SignIn alert={this.alert} setUser={this.setUser} />
+            )} />
+            <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+              <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
+            )} />
+            <AuthenticatedRoute user={user} path='/change-password' render={() => (
+              <ChangePassword alert={this.alert} user={user} />
+            )} />
+            <Route path='/reports' component={Reports} />
+            <Route path='/my-reports' component={} />
+            <Route path='/new-report' component={} />
+            <Route path='/filter' component={} />
+            <Route path='/plan-route' component={} />
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
