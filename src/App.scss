@@ -1,39 +1,39 @@
+// @import 'https://fonts.googleapis.com/css?family=Roboto';
+
 $success: #c7f282;
 $warning: #f1e681;
 $error: #f08181;
 $charcoal: #ccc;
 
-.flash-success,
-.flash-warning,
-.flash-error {
-  border: 1px solid $charcoal;
-  display: block;
-  left: 25%;
-  padding: 30px;
-  position: fixed;
+body {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+}
+
+.panel {
+  background-color: #dedede;
+  border: thin solid #cdcdcd;
+  border-radius: 3px;
+  padding: 2%;
   text-align: center;
-  top: 15%;
-  width: 50%;
-  z-index: 1;
+  margin: 5px;
+
+  a.btn {
+    margin: 5px 0;
+    width: 80%;
+  }
 }
 
-.flash-success {
-  background-color: $success;
-}
-
-.flash-warning {
-  background-color: $warning;
-}
-
-.flash-error {
-  background-color: $error;
+.userMessage {
+  width: 90%;
+  height: 4rem;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 15% auto 0;
+  margin: 5% auto 0;
   max-width: 600px;
 
   h3,

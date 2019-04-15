@@ -1,0 +1,36 @@
+
+.menuPanel {
+
+  header {
+    font-variant: small-caps;
+    font-weight: bold;
+    color: #fff;
+    background-color: #006;
+    padding: 3px 5px;
+    border-radius: 3px;
+  }
+}
+
+.nav-item {
+  background-color: #dedede;
+  border: thin solid #cdcdcd;
+  border-radius: 3px;
+  padding: 2%;
+  text-align: center;
+  margin: 2px;
+
+  a.nav-link {
+    margin: 5px auto;
+    font-family: sans-serif;
+    font-weight: 500;
+    text-align: center;
+    font-size: 16px;
+    font-variant: small-caps;
+    color: #006;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
