@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 
 import { Container, Row, Col } from 'react-bootstrap'
 
+import Home from './layout/Home'
 import TimedAlert from './layout/alert/TimedAlert'
 import Header from './layout/header/Header'
 import Menu from './layout/menu/Menu'
@@ -17,8 +18,7 @@ import ChangePassword from './auth/components/ChangePassword'
 import Reports from './reports/components/Reports'
 import Report from './reports/components/Report'
 import CreateReport from './reports/components/CreateReport'
-
-
+import EditReport from './reports/components/EditReport'
 
 class App extends Component {
   constructor () {
@@ -69,14 +69,23 @@ class App extends Component {
             <AuthenticatedRoute user={user} path='/change-password' render={() => (
               <ChangePassword alert={this.alert} user={user} />
             )} />
-            <Route path='/reports' render={() => (
+            <AuthenticatedRoute path='/' render={() => (
+              <Home alert={this.alert} user={user} />
+            )} />
+            <AuthenticatedRoute exact path='/reports' render={() => (
               <Reports alert={this.alert} user={user} />
             )} />
-            <Route path='/my-reports' render={() => (
+            <AuthenticatedRoute user={user} exact path='/my-reports' render={() => (
+              <Reports alert={this.alert} user={user} />
+            )} />
+            <AuthenticatedRoute user={user} path='/new-report' render={() => (
+              <CreateReport alert={this.alert} user={user} />
+            )} />
+            <AuthenticatedRoute user={user} exact path='/reports/:id' render={() => (
               <Report alert={this.alert} user={user} />
             )} />
-            <Route path='/new-report' render={() => (
-              <CreateReport alert={this.alert} user={user} />
+            <AuthenticatedRoute user={user} exact path='/reports/:id/edit' render={() => (
+              <EditReport alert={this.alert} user={user} />
             )} />
           </Col>
         </Row>
