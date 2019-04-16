@@ -1,10 +1,13 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const allReports = () => {
+export const allReports = (user) => {
   return axios({
     method: 'GET',
-    url: apiUrl + '/condreps'
+    url: apiUrl + '/condreps',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
   })
 }
 
@@ -29,6 +32,7 @@ export const getReport = (user, reportId) => {
 }
 
 export const createReport = (user, params) => {
+  console.log('Create Report: ', params)
   return axios({
     method: 'POST',
     url: apiUrl + '/condreps',
@@ -36,16 +40,19 @@ export const createReport = (user, params) => {
       'Authorization': `Token token=${user.token}`
     },
     data: {
-      condition: params.condition,
-      geolat: params.latitude,
-      geolong: params.longitude,
-      reported_at: params.timestamp,
-      notes: params.notes
+      'condrep': {
+        'condition': params.condition,
+        'geolat': params.geolat,
+        'geolong': params.geolong,
+        'occurred': params.occurred,
+        'notes': params.notes
+      }
     }
   })
 }
 
 export const updateReport = (user, params) => {
+  console.log('Update Report: ', params)
   return axios({
     method: 'PATCH',
     url: apiUrl + '/condreps/' + params.id,
@@ -53,11 +60,13 @@ export const updateReport = (user, params) => {
       'Authorization': `Token token=${user.token}`
     },
     data: {
-      condition: params.condition,
-      geolat: params.latitude,
-      geolong: params.longitude,
-      reported_at: params.timestamp,
-      notes: params.notes
+      'condrep': {
+        'condition': params.condition,
+        'geolat': params.geolat,
+        'geolong': params.geolong,
+        'occurred': params.occurred,
+        'notes': params.notes
+      }
     }
   })
 }
