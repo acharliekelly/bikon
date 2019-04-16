@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 import { createReport } from '../api'
 import messages from '../messages'
@@ -30,17 +30,18 @@ class CreateReport extends Component {
 
     const updatedReport = { ...this.state.report, [inputName]: updatedInputValue }
 
-    this.setState({ movie: updatedReport })
+    this.setState({ report: updatedReport })
   }
 
   handleSubmit = event => {
     event.preventDefault()
     const { report } = this.state
-    const { alert, user } = this.props
+    const { alert, history, user } = this.props
 
     createReport(user, report)
       .then(() => alert(messages.newReportSuccess, 'success'))
       .then(() => this.setState({ created: true }))
+      .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
         alert(messages.newReportFailure, 'danger')
@@ -72,4 +73,4 @@ class CreateReport extends Component {
   }
 }
 
-export default CreateReport
+export default withRouter(CreateReport)
