@@ -1,5 +1,7 @@
-import React, { Component, Fragment } from 'react'
-import { Redirect, withRouter } from 'react-router-dom'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+
+import '../report.scss'
 
 // import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
@@ -12,21 +14,15 @@ class Report extends Component {
     super(props)
 
     this.state = {
-      user: this.props.user,
-      report: null,
-      edit: false,
-      delete: false
+      report: null
     }
   }
 
   componentDidMount () {
+    const { alert, user } = this.props
     const id = this.props.match.params.id
-    const user = this.props.user
     getReport(user, id)
-      .then(() => alert(messages.openReportSuccess, 'success'))
-      .then(response => this.setState({
-        report: response.data.report
-      }))
+      .then(response => this.setState({ report: response.data.condrep }))
       .catch(error => {
         console.error(error)
         alert(messages.openReportFailure, 'danger')
@@ -35,13 +31,11 @@ class Report extends Component {
 
   handleDelete = event => {
     event.preventDefault()
+    const { alert, history, user } = this.props
     const id = this.props.match.params.id
-    const user = this.state.user
     deleteReport(user, id)
       .then(() => alert(messages.deleteReportSuccess, 'success'))
-      .then(() => this.setState({
-        del: true
-      }))
+      .then(() => history.push('/reports'))
       .catch(error => {
         console.error(error)
         alert(messages.deleteReportFailure, 'danger')
@@ -50,35 +44,34 @@ class Report extends Component {
 
   handleEdit = event => {
     event.preventDefault()
-    this.setState({
-      edit: true
-    })
+    const { history } = this.props
+    const editUrl = this.props.match.url + '/edit'
+    history.push(editUrl)
   }
 
+  renderButtons = () => (
+    <React.Fragment>
+      <Button onClick={this.handleEdit}>Edit</Button>
+      <Button onClick={this.handleDelete}>Delete</Button>
+    </React.Fragment>
+  )
+
   render () {
-    const { report, del, edit } = this.state
+    const { report } = this.state
     if (!report) {
       return <h4>Loading...</h4>
     }
-    if (del) {
-      return <Redirect to='/reports' />
-    }
-    if (edit) {
-      return <Redirect to={this.props.match.url + '/edit'} />
-    }
 
-    // const { condition, latitude, longitude, timestamp, notes } = report
+    const { condition, geolat, geolong, occurred, notes } = report
     return (
-      <Fragment>
-        <div className="report">
-          <h3>Condition Report</h3>
-          <div className="todo">
-            Condition Report Info
-          </div>
-        </div>
-        <Button onClick={this.handleEdit}>Edit</Button>
-        <Button onClick={this.handleDelete}>Delete</Button>
-      </Fragment>
+      <div className="report">
+        <header>Condition Report</header>
+        <p>Reported at: {occurred}</p>
+        <p>Location: {geolat}, {geolong}</p>
+        <p>Condition: {condition}</p>
+        <p>Notes: {notes}</p>
+        {report.editable ? this.renderButtons() : ''}
+      </div>
     )
   }
 }
