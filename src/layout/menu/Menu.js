@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Menu.scss'
 
 import Nav from 'react-bootstrap/Nav'
@@ -8,19 +9,19 @@ const authenticated = (
     <header>Menu</header>
     <Nav className="flex-column" variant="pills">
       <Nav.Item>
-        <Nav.Link href="/reports">All Reports</Nav.Link>
+        <Link to="/reports">All Reports</Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/my-reports">My Reports</Nav.Link>
+        <Link to="/my-reports">My Reports</Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/new-report">New Report</Nav.Link>
+        <Link to="/new-report">New Report</Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/filter">Filter Reports</Nav.Link>
+        <Link to="/filter">Filter Reports</Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/plan-route">Plan Route</Nav.Link>
+        <Link to="/plan-route">Plan Route</Link>
       </Nav.Item>
     </Nav>
   </div>
