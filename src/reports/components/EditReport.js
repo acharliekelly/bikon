@@ -1,74 +1,105 @@
-import React, { Component } from 'react'
-import { Redirect, withRouter } from 'react-router-dom'
+import React, { Component, Fragment } from 'react'
+import { withRouter } from 'react-router-dom'
 
-import { createReport } from '../api'
+import Form from 'react-bootstrap/Form'
+import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button'
+
+import { getReport, updateReport } from '../api'
 import messages from '../messages'
-import ReportForm from './ReportForm'
+// import ReportForm from './ReportForm'
 
 class EditReport extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.state = {
-      user: null,
-      updated: false,
       message: null,
-      report: {
-        id: 0,
-        condition: 0,
-        latitude: 0,
-        longitude: 0,
-        timestamp: Date.now(),
-        notes: null
-      }
+      condrep: null
     }
+  }
+
+  componentDidMount () {
+    const { alert, user } = this.props
+    const id = this.props.match.params.id
+    getReport(user, id)
+      .then(response => this.setState({ condrep: response.data.condrep }))
+      .catch(error => {
+        console.error(error)
+        alert(messages.openReportFailure, 'danger')
+      })
   }
 
   handleChange = event => {
     const inputName = event.target.name
     const updatedInputValue = event.target.value
 
-    const updatedReport = { ...this.state.report, [inputName]: updatedInputValue }
+    const updatedReport = { ...this.state.condrep, [inputName]: updatedInputValue }
 
-    this.setState({ movie: updatedReport })
+    this.setState({ condrep: updatedReport })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    const { report } = this.state
+    const { condrep } = this.state
     const { alert, history, user } = this.props
 
-    createReport(user, report)
+    updateReport(user, condrep)
       .then(() => alert(messages.updateReportSuccess, 'success'))
-      .then(() => this.setState({ updated: true }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/reports/' + condrep.id))
       .catch(error => {
         console.error(error)
         alert(messages.updateReportFailure, 'danger')
       })
   }
 
-  render () {
-    const { report, updated, message } = this.state
+  handleCancel = event => {
+    event.preventDefault()
+    const { history } = this.props
+    history.push('/reports')
+  }
 
-    if (updated) {
-      // redirect to report.id
-      return <Redirect to={'/reports/' + report.id} />
-    } else {
-      const { condition, latitude, longitude, timestamp, notes } = report
+  render () {
+    const { condrep, message } = this.state
+    if (condrep) {
+      const { condition, geolat, geolong, occurred, notes } = condrep
       return (
-        <ReportForm
-          formTitle="Edit Report"
-          message={message}
-          condition={condition}
-          latitude={latitude}
-          longitude={longitude}
-          timestamp={timestamp}
-          notes={notes}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <Fragment>
+          <h2 className="pageTitle">Edit Report</h2>
+          { message && <Alert variant="danger" dismissable>{message}</Alert> }
+          <Form onSubmit={this.handleSubmit} className="reportForm">
+            <Form.Group controlId="condition">
+              <Form.Label>Condition</Form.Label>
+              <select name="condition" defaultValue={condition} onSelect={this.handleChange}>
+                <option value="1">Ice</option>
+                <option value="2">Snow</option>
+                <option value="3">Slush</option>
+                <option value="4">Obstruction</option>
+              </select>
+            </Form.Group>
+            <Form.Group controlId="geolat">
+              <Form.Label>Latitude</Form.Label>
+              <Form.Control name="geolat" type="text" defaultValue={geolat} onChange={this.handleChange} />
+            </Form.Group>
+            <Form.Group controlId="geolong">
+              <Form.Label>Longitude</Form.Label>
+              <Form.Control name="geolong" type="text" defaultValue={geolong} onChange={this.handleChange} />
+            </Form.Group>
+            <Form.Group controlId="occurred">
+              <Form.Label>When</Form.Label>
+              <Form.Control name="occurred" type="date" defaultValue={occurred} onChange={this.handleChange} />
+            </Form.Group>
+            <Form.Group controlId="notes">
+              <Form.Label>Additional Info</Form.Label>
+              <Form.Control name="notes" as="textarea" defaultValue={notes} onChange={this.handleChange} />
+            </Form.Group>
+            <Button type="button" variant="secondary" onClick={this.handleCancel}>Cancel</Button>
+            <Button type="submit" variant="primary">Submit</Button>
+          </Form>
+        </Fragment>
       )
+    } else {
+      return 'Loading ...'
     }
   }
 }
