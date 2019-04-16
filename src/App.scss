@@ -10,6 +10,16 @@ body {
   font-size: 14px;
 }
 
+.todo {
+  background-color: #000;
+  color: #0ff;
+  font-family: monospace;
+
+  &::before {
+    content: 'TODO: ';
+  }
+}
+
 .panel {
   background-color: #dedede;
   border: thin solid #cdcdcd;
