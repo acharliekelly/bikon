@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import '../auth.scss'
 
 import { signUp, signIn } from '../api'
 import messages from '../messages'
