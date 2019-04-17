@@ -1,5 +1,6 @@
 
 .menuPanel {
+  font-family: 'Playfair Display', serif;
 
   header {
     font-variant: small-caps;
@@ -14,11 +15,9 @@
     background-color: #dedede;
     border: thin solid #cdcdcd;
     border-radius: 3px;
-    padding: 2%;
     text-align: center;
-    margin: 2px;
 
-    a.nav-link {
+    a {
       margin: 5px auto;
       font-family: sans-serif;
       font-weight: 500;
@@ -26,20 +25,18 @@
       font-size: 16px;
       font-variant: small-caps;
       color: #006;
-
-      &.selected {
-        color: #fff;
-        background-color: #006;
-        padding: 3px 5px;
-        border-radius: 3px;
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-
+      padding: 3px 5px;
     }
 
+    a.selected {
+      color: #fff;
+      background-color: #006;
+      border-radius: 3px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 
 }
