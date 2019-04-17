@@ -3,9 +3,14 @@
 .userMessage {
 
   .alert {
-    font-family: Poppins, sans-serif;
+    font-family: serif;
     margin-bottom: 1px;
     padding: 0.25rem 0.5rem;
-    z-index: 1000;
+
+    .alert-heading {
+      font-variant: small-caps;
+    }
   }
+
+
 }
