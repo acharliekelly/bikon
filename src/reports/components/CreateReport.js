@@ -52,7 +52,7 @@ class CreateReport extends Component {
     createReport(user, condrep)
       .then(response => this.setState({ condrep: response.data.condrep }))
       .then(() => alert(messages.newReportSuccess, 'success'))
-      .then(() => history.push('/reports/' + condrep.id))
+      .then(() => history.push('/reports'))
       .catch(error => {
         console.error(error)
         alert(messages.newReportFailure, 'danger')
