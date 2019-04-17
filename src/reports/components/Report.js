@@ -51,8 +51,8 @@ class Report extends Component {
 
   renderButtons = () => (
     <React.Fragment>
-      <Button onClick={this.handleEdit}>Edit</Button>
-      <Button onClick={this.handleDelete}>Delete</Button>
+      <Button className="btn-primary" onClick={this.handleEdit}>Edit</Button>
+      <Button className="btn-secondary" onClick={this.handleDelete}>Delete</Button>
     </React.Fragment>
   )
 
