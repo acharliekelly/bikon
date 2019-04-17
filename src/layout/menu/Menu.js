@@ -17,12 +17,6 @@ const authenticated = (
       <Nav.Item>
         <NavLink to="/new-report" exact activeClassName="selected">New Report</NavLink>
       </Nav.Item>
-      <Nav.Item>
-        <NavLink to="/filter" exact activeClassName="selected">Filter Reports</NavLink>
-      </Nav.Item>
-      <Nav.Item>
-        <NavLink to="/plan-route" exact activeClassName="selected">Plan Route</NavLink>
-      </Nav.Item>
     </Nav>
   </div>
 )
