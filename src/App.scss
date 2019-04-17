@@ -1,4 +1,4 @@
-// @import 'https://fonts.googleapis.com/css?family=Roboto';
+@import './css/index';
 
 $success: #c7f282;
 $warning: #f1e681;
@@ -6,7 +6,7 @@ $error: #f08181;
 $charcoal: #ccc;
 
 body {
-  font-family: Roboto, sans-serif;
+  font-family: Oswald, sans-serif;
   font-size: 14px;
 }
 
