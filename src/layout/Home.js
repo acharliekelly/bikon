@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
 
+// import BaseMap from '../geo/BaseMap'
+
 const Home = () => (
   <Fragment>
-    <h3>Home</h3>
-    <span className="todo">Put stuff here</span>
+    <h4>Home</h4>
+    { /* <BaseMap isMarkerShown /> */ }
   </Fragment>
 )
 
