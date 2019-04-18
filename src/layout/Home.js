@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
 
-// import ReportMap from '../geo/ReportMap'
+import BrowserLocation from '../geo/BrowserLocation'
 
-const Home = () => (
-  <Fragment>
-    <h4>Home</h4>
-  </Fragment>
-)
+const Home = () => {
+  return (
+    <Fragment>
+      <h4>Home</h4>
+      <BrowserLocation />
+    </Fragment>
+  )
+}
 
 export default Home

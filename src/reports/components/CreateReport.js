@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 // import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 import ConditionGroup from './ConditionGroup'
+import BrowserLocation from '../../geo/BrowserLocation'
 
 import { createReport } from '../api'
 import messages from '../messages'
@@ -46,6 +47,19 @@ class CreateReport extends Component {
     this.setState({ condrep: updatedReport })
   }
 
+  componentDidMount () {
+    navigator.geolocation.getCurrentPosition(this.geoSuccess)
+  }
+
+  geoSuccess = position => {
+    const rep = {
+      ...this.state.condrep,
+      'geolat': position.coords.latitude,
+      'geolong': position.coords.longitude
+    }
+    this.setState({ condrep: rep })
+  }
+
   handleSubmit = event => {
     event.preventDefault()
     const { condrep } = this.state
@@ -70,11 +84,12 @@ class CreateReport extends Component {
     const { condition, geolat, geolong, occurred, notes } = condrep
     return (
       <Fragment>
+        <BrowserLocation />
         <h2 className="pageTitle">Create Report</h2>
         { message && <Alert variant="danger" dismissable>{message}</Alert> }
         <Form onSubmit={this.handleSubmit} className="reportForm">
           <Form.Group controlId="condition">
-            <ConditionGroup selected={condition} editable={true} onChange={this.handleConditionChange} />
+            <ConditionGroup selected={condition} onChange={this.handleConditionChange} />
           </Form.Group>
           <Form.Group controlId="geolat">
             <Form.Label>Latitude: </Form.Label>
