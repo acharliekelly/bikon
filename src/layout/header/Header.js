@@ -23,7 +23,7 @@ const Header = ({ user }) => (
     <Col className="panel titlePanel">
       <h1>
         <Link to="/" className="titleLink">
-          <img className={ user && 'auth'} src="bikon.png" alt="Logo" />
+          <img className={ user && 'auth'} src="images/bikon.png" alt="Logo" />
           BiKon
         </Link>
       </h1>

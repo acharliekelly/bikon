@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
+
 $charcoal: #bbb;
 
 
@@ -15,35 +17,25 @@ $charcoal: #bbb;
   }
   h1 {
     font-size: 60px;
-    font-family: 'Fascinate Inline', cursive;
     font-weight: bold;
+    font-family: 'Fascinate Inline', cursive;
+  }
+
+  .titleLink, .titleLink:hover {
+    color: #000;
+    text-decoration: none;
   }
 
 }
 
-.titlePanel .titleLink, .titlePanel .titleLink:hover {
-  color: #000;
-  text-decoration: none;
-}
 
-
-.authenticationPanel div {
-  margin-top: 5%;
-}
-
-main {
-  margin: 0 10%;
-}
-
-header {
-  text-align: center;
-  margin: 20px auto;
-
-  .title-image {
-    height: 15vh;
+.authenticationPanel {
+  font-family: 'Fascinate Inline', cursive;
+  font-size: 14px;
+  div {
+    margin-top: 5%;
   }
 }
-
 
 //
 // .main-header {
