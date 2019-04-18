@@ -13,6 +13,7 @@ class Reports extends Component {
     super(props)
 
     this.state = {
+      loaded: false,
       condreps: []
     }
   }
@@ -21,16 +22,20 @@ class Reports extends Component {
     const { alert, user, own } = this.props
     if (own) {
       myReports(user)
-        .then(response => this.setState({ condreps: response.data.condreps }))
-        .catch(error => {
-          console.error(error)
-          alert(messages.myReportsFailure, 'danger')
+        .then(response => this.setState({
+          loaded: true,
+          condreps: response.data.condreps
+        }))
+        .catch(() => {
+          alert(messages.indexFailure, 'danger')
         })
     } else {
       allReports(user)
-        .then(response => this.setState({ condreps: response.data.condreps }))
-        .catch(error => {
-          console.error(error)
+        .then(response => this.setState({
+          loaded: true,
+          condreps: response.data.condreps
+        }))
+        .catch(() => {
           alert(messages.indexFailure, 'danger')
         })
     }
@@ -43,11 +48,12 @@ class Reports extends Component {
   }
 
   render () {
-    const { condreps } = this.state
-    if (typeof condreps === 'undefined') {
-      return <div className="no-data">No records</div>
-    } else if (condreps.length === 0) {
+    const { loaded, condreps } = this.state
+    if (!loaded) {
       return <Spinner animation="grow" variation="dark" />
+    } else if (condreps.length === 0) {
+      // axios is finished loading, but there is no data
+      return <div className="no-data">No records</div>
     } else {
       return (
         <Fragment>
@@ -67,14 +73,14 @@ class Reports extends Component {
                 <tr key={condrep.id} className={condrep.editable ? 'mine' : 'other'}>
                   <td>{this.getLink(condrep.id, condrep.id)}</td>
                   <td>
-                    <ConditionView condition={condrep.condition} />
+                    <ConditionView condition={condrep.condition} wrapper />
                   </td>
-                  <td>{this.getLink(condrep.id, condrep.occurred)}</td>
+                  <td>{this.getLink(condrep.id, condrep.when)}</td>
                   <td>
                     Lat: {this.getLink(condrep.id, condrep.geolat)} <br/>
                     Lng: {this.getLink(condrep.id, condrep.geolong)}
                   </td>
-                  <td>{this.getLink(condrep.id, condrep.editable ? 'Me' : 'Somebody')}</td>
+                  <td>{this.getLink(condrep.id, condrep.email)}</td>
                 </tr>
               ))}
             </tbody>
