@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 
+import ConditionGroup from './ConditionGroup'
+
 import { getReport, updateReport } from '../api'
 import messages from '../messages'
 // import ReportForm from './ReportForm'
@@ -33,10 +35,16 @@ class EditReport extends Component {
   handleChange = event => {
     const inputName = event.target.name
     const updatedInputValue = event.target.value
+    this.updateReport(inputName, updatedInputValue)
+  }
 
-    const updatedReport = { ...this.state.condrep, [inputName]: updatedInputValue }
-
+  updateReport = (field, value) => {
+    const updatedReport = { ...this.state.condrep, [field]: value }
     this.setState({ condrep: updatedReport })
+  }
+
+  handleConditionChange = condition => {
+    this.updateReport('condition', condition)
   }
 
   handleSubmit = event => {
@@ -69,13 +77,7 @@ class EditReport extends Component {
           { message && <Alert variant="danger" dismissable>{message}</Alert> }
           <Form onSubmit={this.handleSubmit} className="reportForm">
             <Form.Group controlId="condition">
-              <Form.Label>Condition</Form.Label>
-              <select name="condition" defaultValue={condition} onSelect={this.handleChange}>
-                <option value="1">Ice</option>
-                <option value="2">Snow</option>
-                <option value="3">Slush</option>
-                <option value="4">Obstruction</option>
-              </select>
+              <ConditionGroup selected={condition} editable={true} onChange={this.handleConditionChange} />
             </Form.Group>
             <Form.Group controlId="geolat">
               <Form.Label>Latitude</Form.Label>

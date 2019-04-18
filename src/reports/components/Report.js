@@ -6,6 +6,8 @@ import '../report.scss'
 // import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 
+import ConditionView from './ConditionView'
+
 import { getReport, deleteReport } from '../api'
 import messages from '../messages'
 
@@ -64,11 +66,11 @@ class Report extends Component {
 
     const { condition, geolat, geolong, occurred, notes } = report
     return (
-      <div className="report">
+      <div className="report-view">
         <header>Condition Report</header>
+        <ConditionView condition={condition} />
         <p>Reported at: {occurred}</p>
         <p>Location: {geolat}, {geolong}</p>
-        <p>Condition: {condition}</p>
         <p>Notes: {notes}</p>
         {report.editable ? this.renderButtons() : ''}
       </div>

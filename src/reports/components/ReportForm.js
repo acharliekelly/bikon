@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import ConditionGroup from './ConditionGroup'
 
 const ReportForm = (
   { formTitle, message, handleSubmit, handleChange, handleCondition, handleCancel, condition, geolat, geolong, occurred, notes }
@@ -13,13 +13,7 @@ const ReportForm = (
     { message && <Alert variant="danger" dismissable>{message}</Alert> }
     <Form onSubmit={handleSubmit} className="reportForm">
       <Form.Group controlId="condition">
-        <Form.Label>Condition</Form.Label>
-        <ButtonGroup className="mr-2">
-          <Button variant="primary" id="cond1" name="condition" onClick={this.handleCondition} active={condition === 1}>Ice</Button>
-          <Button variant="info" id="cond2" name="condition" onClick={this.handleCondition} active={condition === 2}>Snow</Button>
-          <Button variant="secondary" id="cond3" name="condition" onClick={this.handleCondition} active={condition === 3}>Slush</Button>
-          <Button variant="dark" id="cond4" name="condition" onClick={this.handleCondition} active={condition === 4}>Obstruction</Button>
-        </ButtonGroup>
+        <ConditionGroup selected={condition} editable={true} onChange={handleCondition} />
       </Form.Group>
       <Form.Group controlId="geolat">
         <Form.Label>Latitude</Form.Label>

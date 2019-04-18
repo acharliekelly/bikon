@@ -1,11 +1,18 @@
-.report {
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+
+.report-view {
+  font-family: 'Playfair Display', serif;
   border: thin solid #000;
   border-radius: 4px;
   padding: 3px;
-  font-size: 12px;
+  font-size: 16px;
 
   header {
-    font-size: 16px;
+    font-size: 20px;
+  }
+
+  button {
+    margin: 2px 5px;
   }
 }
 
@@ -28,5 +35,63 @@
   }
   .other, .other a {
     color: purple;
+  }
+}
+
+table {
+  .mine a {
+    color: #900;
+    text-decoration: none;
+  }
+  .other a {
+    color: #909;
+    text-decoration: none;
+  }
+}
+
+.condition-options {
+  border: thin solid #099;
+  border-radius: 3px;
+  padding: 0.25rem;
+  margin: 2px;
+
+  img {
+    margin: 0 3px;
+    background-color: transparent;
+    width: 32px;
+    height: 32px;
+  }
+
+  img.selected {
+    background-color: #000;
+  }
+
+  .editable img:hover {
+    border: thin solid #900;
+  }
+
+  .cond-value {
+    text-align: right;
+    font-weight: 600;
+    font-size: 12px;
+    margin-left: 100px;
+  }
+
+}
+
+.condition {
+  .label {
+    margin-right: 3px;
+  }
+  img {
+    width: 48px;
+    height: 48px;
+  }
+  .text {
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 3px;
+    vertical-align: middle;
   }
 }

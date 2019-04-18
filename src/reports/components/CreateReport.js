@@ -6,6 +6,8 @@ import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 // import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
+import ConditionGroup from './ConditionGroup'
+
 import { createReport } from '../api'
 import messages from '../messages'
 // import ReportForm from './ReportForm'
@@ -59,24 +61,8 @@ class CreateReport extends Component {
       })
   }
 
-  condIce = event => {
-    event.preventDefault()
-    this.updateCondrep('condition', 1)
-  }
-
-  condSnow = event => {
-    event.preventDefault()
-    this.updateCondrep('condition', 2)
-  }
-
-  condSlush = event => {
-    event.preventDefault()
-    this.updateCondrep('condition', 3)
-  }
-
-  condObst = event => {
-    event.preventDefault()
-    this.updateCondrep('condition', 4)
+  handleConditionChange = condValue => {
+    this.updateCondrep('condition', condValue)
   }
 
   render () {
@@ -88,22 +74,18 @@ class CreateReport extends Component {
         { message && <Alert variant="danger" dismissable>{message}</Alert> }
         <Form onSubmit={this.handleSubmit} className="reportForm">
           <Form.Group controlId="condition">
-            <Form.Label>Condition</Form.Label>
-            <Button variant="primary" id="cond1" name="condition" onClick={this.condIce} active={condition === 1}>Ice</Button>
-            <Button variant="info" id="cond2" name="condition" onClick={this.condSnow} active={condition === 2}>Snow</Button>
-            <Button variant="secondary" id="cond3" name="condition" onClick={this.condSlush} active={condition === 3}>Slush</Button>
-            <Button variant="dark" id="cond4" name="condition" onClick={this.condObst} active={condition === 4}>Obstruction</Button>
+            <ConditionGroup selected={condition} editable={true} onChange={this.handleConditionChange} />
           </Form.Group>
           <Form.Group controlId="geolat">
-            <Form.Label>Latitude</Form.Label>
+            <Form.Label>Latitude: </Form.Label>
             <Form.Control name="geolat" type="text" defaultValue={geolat} onChange={this.handleChange} />
           </Form.Group>
           <Form.Group controlId="geolong">
-            <Form.Label>Longitude</Form.Label>
+            <Form.Label>Longitude: </Form.Label>
             <Form.Control name="geolong" type="text" defaultValue={geolong} onChange={this.handleChange} />
           </Form.Group>
           <Form.Group controlId="occurred">
-            <Form.Label>When</Form.Label>
+            <Form.Label>When: </Form.Label>
             <Form.Control name="occurred" type="date" defaultValue={occurred} onChange={this.handleChange} />
           </Form.Group>
           <Form.Group controlId="notes">
