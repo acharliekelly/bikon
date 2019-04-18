@@ -31,6 +31,16 @@ class Report extends Component {
       })
   }
 
+  getMapLink = () => {
+    const { geolat, geolong } = this.state.report
+    const url = `https://www.google.com/maps/@${geolat},${geolong},14z`
+    return (
+      <a className="gmap" href={url} target="_blank" rel="noopener noreferrer">
+        Lat: {geolat}, Lng: {geolong}
+      </a>
+    )
+  }
+
   handleDelete = event => {
     event.preventDefault()
     const { alert, history, user } = this.props
@@ -64,15 +74,23 @@ class Report extends Component {
       return <h4>Loading...</h4>
     }
 
-    const { condition, geolat, geolong, occurred, notes } = report
+    const { condition, when, notes, editable } = report
     return (
       <div className="report-view">
         <header>Condition Report</header>
-        <ConditionView condition={condition} />
-        <p>Reported at: {occurred}</p>
-        <p>Location: {geolat}, {geolong}</p>
-        <p>Notes: {notes}</p>
-        {report.editable ? this.renderButtons() : ''}
+        <p>
+          <ConditionView condition={condition} wrapper />
+        </p>
+        <p>
+          <span className="label">When: </span>
+          <span className="value">{when}</span>
+        </p>
+        <p>
+          <span className="label">Where: </span>
+          {this.getMapLink()}
+        </p>
+        {notes ? (<p>Notes: {notes}</p>) : ''}
+        {editable ? this.renderButtons() : ''}
       </div>
     )
   }
