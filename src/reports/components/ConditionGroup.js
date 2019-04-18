@@ -1,44 +1,71 @@
 import React, { Component } from 'react'
 
-import ConditionImage from './ConditionImage'
+// import ConditionImage from './ConditionImage'
+import ConditionView from './ConditionView'
 
 /**
  * Public Properties:
  *  - selected - int: current value of condition
- *  - editable - boolean: true if part of a form
  *  - onChange - function(int): callback after condition change
  */
 class ConditionGroup extends Component {
-  constructor (props) {
-    super(props)
-
+  constructor () {
+    super()
     this.state = {
-      selected: props.selected
+      conditionValue: 0,
+      conditions: [0, 0, 0, 0, 0]
     }
+    this.setConditionOn = this.setConditionOn.bind(this)
   }
 
-  // takes condition from ConditionImage click handler
-  handleClick = condition => {
-    const { editable, onChange } = this.props
-    if (editable) {
-      this.setState({ selected: condition })
-      // pass condition up chain
-      onChange(condition)
+  componentDidMount () {
+    this.setConditionOn(this.props.selected)
+  }
+
+  setConditionOn (condition) {
+    const options = []
+    for (let i = 0; i < 5; i++) {
+      options.push(i === (condition - 1) ? 1 : 0)
     }
+    this.setState({
+      conditionValue: condition,
+      conditions: options
+    })
+    this.props.onChange(condition)
+  }
+
+  conditionLookup (condition) {
+    let title = ''
+    switch (condition) {
+    case 1:
+      title = 'Ice'
+      break
+    case 2:
+      title = 'Snow'
+      break
+    case 3:
+      title = 'Slush'
+      break
+    case 4:
+      title = 'Obstruction'
+      break
+    case 5:
+      title = 'Flood'
+      break
+    }
+    return title
   }
 
   render () {
-    const { selected } = this.state
+    const { conditions, conditionValue } = this.state
     return (
       <div className="condition-options">
-        <div className={this.props.editable ? 'editable' : undefined}>
+        <div className="editable">
           <span className="label">Condition: </span>
-          <ConditionImage id="1" img="ice" title="Ice" callback={this.handleClick} active={selected === 1} />
-          <ConditionImage id="2" img="snow" title="Snow" callback={this.handleClick} active={selected === 2} />
-          <ConditionImage id="3" img="slush" title="Slush" callback={this.handleClick} active={selected === 3} />
-          <ConditionImage id="4" img="obstruct" title="Obstruction" callback={this.handleClick} active={selected === 4} />
-          <ConditionImage id="5" img="flood" title="Flood" callback={this.handleClick} active={selected === 5} />
-          <span className="cond-value">{this.state.selected}</span>
+          {conditions.map((cond, i) => {
+            return <ConditionView key={i} condition={i + 1} status={cond} callback={this.setConditionOn} />
+          })}
+          <span className="cond-value">{this.conditionLookup(conditionValue)}</span>
         </div>
       </div>
     )

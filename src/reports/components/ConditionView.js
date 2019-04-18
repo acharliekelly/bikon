@@ -2,7 +2,7 @@ import React from 'react'
 
 import ConditionImage from './ConditionImage'
 
-const ConditionView = ({ condition }) => {
+const ConditionView = ({ condition, callback, status, wrapper }) => {
   let title = ''
   let src = ''
   switch (condition) {
@@ -33,7 +33,9 @@ const ConditionView = ({ condition }) => {
       id={condition}
       img={src}
       title={title}
-      wrapper={true}
+      wrapper={wrapper}
+      callback={callback}
+      status={status}
     />
   )
 }

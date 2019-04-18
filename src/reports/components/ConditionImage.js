@@ -10,37 +10,27 @@ import React, { Component } from 'react'
  * - active (boolean): starts out selected
  */
 class ConditionImage extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      active: false
-    }
-  }
-
-  componentDidMount () {
-    this.setState({
-      active: this.props.active
-    })
+  constructor () {
+    super()
+    this.handleClick = this.handleClick.bind(this)
   }
 
   // handle click on image by changing state, passing id back up chain
-  handleClick = () => {
+  handleClick () {
     const { id, callback } = this.props
     if (callback) {
-      this.setState({ active: !this.state.active })
       callback(id)
     }
   }
 
   render () {
-    const { id, img, title, clickable, wrapper } = this.props
-    const imgCls = this.state.active ? 'selected' : undefined
+    const { id, img, title, status, callback, wrapper } = this.props
+    const imgCls = status ? 'selected' : '-'
     const imgSrc = `images/${img}.png`
     const imgId = 'c' + id
     if (wrapper) {
       // wrap in div.condition
-      const wrapperCls = 'condition' + (clickable ? ' editable' : '')
+      const wrapperCls = 'condition' + (callback ? ' editable' : '')
       return (
         <div className={wrapperCls}>
           <img id={imgId} alt={title} src={imgSrc} className={imgCls} onClick={this.handleClick} />
@@ -49,7 +39,9 @@ class ConditionImage extends Component {
       )
     } else {
       // just img
-      return <img id={imgId} alt={title} src={imgSrc} className={imgCls} onClick={this.handleClick} />
+      return (
+        <img id={imgId} alt={title} src={imgSrc} className={imgCls} onClick={this.handleClick} />
+      )
     }
   }
 }
