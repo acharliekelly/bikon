@@ -28,11 +28,11 @@ class TimedAlert extends React.Component {
   }
 
   render () {
-    // const handleShow = () => this.setState({ show: true })
     const { variant, message, className } = this.props
+    const header = (variant === 'danger' ? 'failure' : variant)
     return (
       <Alert className={className} show={this.state.show} onClose={this.handleHide} dismissible variant={variant}>
-        <Alert.Heading>{variant}</Alert.Heading>
+        <Alert.Heading>{header}</Alert.Heading>
         <p>{message}</p>
       </Alert>
     )
