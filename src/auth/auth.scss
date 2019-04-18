@@ -1,14 +1,24 @@
-
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
 
 .auth-form {
+  font-family: 'Playfair Display', serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 4px;
   margin: 5% auto 0;
   max-width: 600px;
+  border: thin outset #666;
+  border-radius: 5px;
+
+  header {
+    font-size: 18px;
+    text-align: center;
+  }
 
   h3,
-  input {
+  input,
+  header {
     margin-bottom: 5%;
   }
 

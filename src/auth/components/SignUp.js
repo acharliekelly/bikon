@@ -39,10 +39,9 @@ class SignUp extends Component {
 
   render () {
     const { email, password, passwordConfirmation } = this.state
-
     return (
       <form className='auth-form' onSubmit={this.onSignUp}>
-        <h3>Sign Up</h3>
+        <header>Sign Up</header>
 
         <label htmlFor="email">Email</label>
         <input
@@ -71,7 +70,7 @@ class SignUp extends Component {
           placeholder="Confirm Password"
           onChange={this.handleChange}
         />
-        <button type="submit">Sign Up</button>
+        <button className="btn btn-secondary" type="submit">Sign Up</button>
       </form>
     )
   }
