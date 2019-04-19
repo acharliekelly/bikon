@@ -5,7 +5,7 @@ import BrowserLocation from '../geo/BrowserLocation'
 const Home = () => {
   return (
     <Fragment>
-      <h4>Home</h4>
+      <header className="pageTitle">Home</header>
       <BrowserLocation />
     </Fragment>
   )
