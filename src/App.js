@@ -15,7 +15,7 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
-import Reports from './reports/components/Reports'
+import ReportList from './reports/components/ReportList'
 import Report from './reports/components/Report'
 import CreateReport from './reports/components/CreateReport'
 import EditReport from './reports/components/EditReport'
@@ -63,10 +63,10 @@ class App extends Component {
               <ChangePassword alert={this.alert} user={user} />
             )} />
             <AuthenticatedRoute user={user} exact path='/reports' render={() => (
-              <Reports alert={this.alert} user={user} own={false} />
+              <ReportList alert={this.alert} user={user} own={false} />
             )} />
             <AuthenticatedRoute user={user} exact path='/my-reports' render={() => (
-              <Reports alert={this.alert} user={user} own={true} />
+              <ReportList alert={this.alert} user={user} own={true} />
             )} />
             <AuthenticatedRoute user={user} path='/new-report' render={() => (
               <CreateReport alert={this.alert} user={user} />
