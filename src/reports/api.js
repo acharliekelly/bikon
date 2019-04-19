@@ -32,7 +32,6 @@ export const getReport = (user, reportId) => {
 }
 
 export const createReport = (user, params) => {
-  console.log('Create Report: ', params)
   return axios({
     method: 'POST',
     url: apiUrl + '/condreps',
@@ -52,7 +51,6 @@ export const createReport = (user, params) => {
 }
 
 export const updateReport = (user, params) => {
-  console.log('Update Report: ', params)
   return axios({
     method: 'PATCH',
     url: apiUrl + '/condreps/' + params.id,
