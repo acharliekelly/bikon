@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Spinner from 'react-bootstrap/Spinner'
 
 import ConditionGroup from './ConditionGroup'
 
@@ -16,6 +18,7 @@ class EditReport extends Component {
     super(props)
 
     this.state = {
+      loaded: false,
       message: null,
       condrep: null
     }
@@ -25,9 +28,11 @@ class EditReport extends Component {
     const { alert, user } = this.props
     const id = this.props.match.params.id
     getReport(user, id)
-      .then(response => this.setState({ condrep: response.data.condrep }))
-      .catch(error => {
-        console.error(error)
+      .then(response => this.setState({
+        loaded: true,
+        condrep: response.data.condrep
+      }))
+      .catch(() => {
         alert(messages.openReportFailure, 'danger')
       })
   }
@@ -53,10 +58,9 @@ class EditReport extends Component {
     const { alert, history, user } = this.props
 
     updateReport(user, condrep)
-      .then(() => alert(messages.updateReportSuccess, 'success'))
       .then(() => history.push('/reports/' + condrep.id))
-      .catch(error => {
-        console.error(error)
+      .then(() => alert(messages.updateReportSuccess, 'success'))
+      .catch(() => {
         alert(messages.updateReportFailure, 'danger')
       })
   }
@@ -68,8 +72,10 @@ class EditReport extends Component {
   }
 
   render () {
-    const { condrep, message } = this.state
-    if (condrep) {
+    const { condrep, message, loaded } = this.state
+    if (!loaded) {
+      return <Spinner animation="grow" variant="info" />
+    } else if (condrep) {
       const { condition, geolat, geolong, occurred, notes } = condrep
       return (
         <Fragment>
@@ -77,19 +83,29 @@ class EditReport extends Component {
           { message && <Alert variant="danger" dismissable>{message}</Alert> }
           <Form onSubmit={this.handleSubmit} className="reportForm">
             <Form.Group controlId="condition">
-              <ConditionGroup selected={condition} editable={true} onChange={this.handleConditionChange} />
+              <ConditionGroup selected={condition} onChange={this.handleConditionChange} />
             </Form.Group>
-            <Form.Group controlId="geolat">
-              <Form.Label>Latitude</Form.Label>
-              <Form.Control name="geolat" type="text" defaultValue={geolat} onChange={this.handleChange} />
+            <Form.Group>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text>Latitude</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control name="geolat" type="text" defaultValue={geolat} onChange={this.handleChange} />
+              </InputGroup>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text>Longitude</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control name="geolong" type="text" defaultValue={geolong} onChange={this.handleChange} />
+              </InputGroup>
             </Form.Group>
-            <Form.Group controlId="geolong">
-              <Form.Label>Longitude</Form.Label>
-              <Form.Control name="geolong" type="text" defaultValue={geolong} onChange={this.handleChange} />
-            </Form.Group>
-            <Form.Group controlId="occurred">
-              <Form.Label>When</Form.Label>
-              <Form.Control name="occurred" type="date" defaultValue={occurred} onChange={this.handleChange} />
+            <Form.Group>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text>When</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control name="occurred" type="date" defaultValue={occurred} onChange={this.handleChange} />
+              </InputGroup>
             </Form.Group>
             <Form.Group controlId="notes">
               <Form.Label>Additional Info</Form.Label>
@@ -101,7 +117,9 @@ class EditReport extends Component {
         </Fragment>
       )
     } else {
-      return 'Loading ...'
+      return (
+        <p>Unable to load data</p>
+      )
     }
   }
 }
