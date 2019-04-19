@@ -22,7 +22,6 @@ Biking Conditions Reporting App
   4. any additional notes I think would be useful
 6. I want to view, edit, and/or delete past reports I've made
 7. I want view reports made by other users
-8. Ideally, I'd like to filter other users reports by date and location, so I can find the most relevant information if I'm planning a trip.
 
 ## Wireframes
 
@@ -36,9 +35,6 @@ Back-end Persistence: PostgreSQL
 Back-end Host: Heroku
 Front-end framework: ReactJS
 Styling library: Bootstrap (react-bootstrap)
-Other libraries:
-* Google Maps API
-* Google Maps React Wrapper (react-google-maps)
 
 ## Screenshots
 
@@ -46,9 +42,26 @@ Other libraries:
 [View Report](https://i.imgur.com/PxDCmRX.png)
 [New Report](https://i.imgur.com/iAMO7GI.png)
 
+## Installation Instructions
 
-// TODO:
-//
-### Installation Instructions
-### List unsolved problems which would be fixed in future iterations.
-### Document your planning, process and problem-solving strategy
+1. Fork and Clone repo
+2. Install dependencies witn `npm install`
+3. Launch server with `npm start`
+4. In order for the app to work, you must also have a working version of the back-end API, which is available [here](https://github.com/acharliekelly/bikon-api)
+
+## Planning, Process, and Problem Solving Strategy
+
+This idea for this project came from repeatedly falling off my bike on my way to class this winter. This is because I bike in from Waltham, which is 12 miles of unplowed and unsalted bike path. I could look at the weather forecast before leaving, but there's really nothing in a forecast about how icy a bike path is going to be. The only way to know that would be for other cyclists to report dangerous areas of path, and then you could check their reports before setting out. Hence my app.
+
+For this project, I wanted to be sure I didn't get stuck with an over-ambitious set of goals and no realistic way to reach them before the deadline. So even though a mapping component would be a pretty obvious improvement to this app, I decided early on that having to manually enter your geographic coordinates isn't necessarily a dealbreaker. Also, there's a fair amount you can do with no map components at all - modern browsers will provide geolocation information (with the user's permission) with simple vanilla JS.
+
+Also, I got dramatically better with ReactJS over the course of this project. Which wasn't really difficult since I'd barely heard of it before a few weeks ago. Still, I'm excited to go back (when I have some free time) and rewrite all my previous projects using JSX components.
+
+## List unsolved problems which would be fixed in future iterations
+
+As I said above, a Google Maps plugin would be very useful for this project. My goals for the next iteration:
+1. Allow users to mark the location they're reporting on a map, instead of just filling in the browser location or requiring them to manually enter coordinates. They might not have a device handy at the time, but are filing a report later, from a different location
+2. Separate from creating reports, the real benefit of this app will come from the ability to search for and filter existing reports, including
+  1. Show only the most recent reports
+  2. Show reports that are near your current location
+  3. Plan a route, and see reports that are along that route
