@@ -6,6 +6,7 @@ import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Spinner from 'react-bootstrap/Spinner'
+import Col from 'react-bootstrap/Col'
 
 import ConditionGroup from './ConditionGroup'
 
@@ -86,30 +87,42 @@ class EditReport extends Component {
               <ConditionGroup selected={condition} onChange={this.handleConditionChange} />
             </Form.Group>
             <Form.Group>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>Latitude</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control name="geolat" type="text" defaultValue={geolat} onChange={this.handleChange} />
-              </InputGroup>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>Longitude</InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control name="geolong" type="text" defaultValue={geolong} onChange={this.handleChange} />
-              </InputGroup>
+              <Form.Row>
+                <Col>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>Latitude</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <input name="geolat" className="form-control" type="number" min="-90.0" max="90.0" step="any"
+                      value={geolat} autoComplete onChange={this.handleChange} />
+                  </InputGroup>
+                </Col>
+                <Col>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>Longitude</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <input name="geolong" className="form-control" type="number" min="-180.0" max="180.0" step="any"
+                      value={geolong} autoComplete onChange={this.handleChange} />
+                  </InputGroup>
+                </Col>
+              </Form.Row>
             </Form.Group>
             <Form.Group>
               <InputGroup>
                 <InputGroup.Prepend>
                   <InputGroup.Text>When</InputGroup.Text>
                 </InputGroup.Prepend>
-                <Form.Control name="occurred" type="date" defaultValue={occurred} onChange={this.handleChange} />
+                <input name="occurred" type="datetime-local" value={occurred} onChange={this.handleChange} />
               </InputGroup>
             </Form.Group>
             <Form.Group controlId="notes">
-              <Form.Label>Additional Info</Form.Label>
-              <Form.Control name="notes" as="textarea" defaultValue={notes} onChange={this.handleChange} />
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text>Other Info</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control name="notes" as="textarea" defaultValue={notes} onChange={this.handleChange} />
+              </InputGroup>
             </Form.Group>
             <Button type="button" variant="secondary" onClick={this.handleCancel}>Cancel</Button>
             <Button type="submit" variant="primary">Submit</Button>
