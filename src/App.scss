@@ -8,6 +8,7 @@ $charcoal: #ccc;
 body {
   font-family: Oswald, sans-serif;
   font-size: 14px;
+  background-color: #f1e681;
 }
 
 .todo {
@@ -41,5 +42,13 @@ body {
 }
 
 .content-display {
-  margin-top: 5px;
+  margin: 5px 0;
+  background-color: #eee;
+  // border: thin inset #ccc;
+  border-radius: 5px;
+}
+
+.pageTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
 }
