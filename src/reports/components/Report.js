@@ -3,10 +3,11 @@ import { withRouter } from 'react-router-dom'
 
 import '../report.scss'
 
-// import Spinner from 'react-bootstrap/Spinner'
+import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 
 import ConditionView from './ConditionView'
+import MapButton from '../../geo/MapButton'
 
 import { getReport, deleteReport } from '../api'
 import messages from '../messages'
@@ -16,6 +17,7 @@ class Report extends Component {
     super(props)
 
     this.state = {
+      loaded: false,
       report: null
     }
   }
@@ -24,21 +26,13 @@ class Report extends Component {
     const { alert, user } = this.props
     const id = this.props.match.params.id
     getReport(user, id)
-      .then(response => this.setState({ report: response.data.condrep }))
-      .catch(error => {
-        console.error(error)
+      .then(response => this.setState({
+        loaded: true,
+        report: response.data.condrep
+      }))
+      .catch(() => {
         alert(messages.openReportFailure, 'danger')
       })
-  }
-
-  getMapLink = () => {
-    const { geolat, geolong } = this.state.report
-    const url = `https://www.google.com/maps/@${geolat},${geolong},14z`
-    return (
-      <a className="gmap" href={url} target="_blank" rel="noopener noreferrer">
-        Lat: {geolat}, Lng: {geolong}
-      </a>
-    )
   }
 
   handleDelete = event => {
@@ -46,10 +40,9 @@ class Report extends Component {
     const { alert, history, user } = this.props
     const id = this.props.match.params.id
     deleteReport(user, id)
-      .then(() => alert(messages.deleteReportSuccess, 'success'))
       .then(() => history.push('/reports'))
-      .catch(error => {
-        console.error(error)
+      .then(() => alert(messages.deleteReportSuccess, 'success'))
+      .catch(() => {
         alert(messages.deleteReportFailure, 'danger')
       })
   }
@@ -61,36 +54,41 @@ class Report extends Component {
     history.push(editUrl)
   }
 
-  renderButtons = () => (
+  renderEditButtons = () => (
     <React.Fragment>
-      <Button className="btn-primary" onClick={this.handleEdit}>Edit</Button>
-      <Button className="btn-secondary" onClick={this.handleDelete}>Delete</Button>
+      <Button as="a" variant="primary" onClick={this.handleEdit}>Edit</Button>
+      <Button as="a" variant="secondary" onClick={this.handleDelete}>Delete</Button>
     </React.Fragment>
   )
 
   render () {
-    const { report } = this.state
-    if (!report) {
-      return <h4>Loading...</h4>
+    const { loaded, report } = this.state
+    if (!loaded) {
+      return <Spinner animation="grow" variant="dark" />
     }
 
-    const { condition, when, notes, editable } = report
+    const { condition, when, geolat, geolong, notes, editable } = report
     return (
       <div className="report-view">
-        <header>Condition Report</header>
-        <p>
-          <ConditionView condition={condition} wrapper />
-        </p>
-        <p>
-          <span className="label">When: </span>
-          <span className="value">{when}</span>
-        </p>
-        <p>
-          <span className="label">Where: </span>
-          {this.getMapLink()}
-        </p>
-        {notes ? (<p>Notes: {notes}</p>) : ''}
-        {editable ? this.renderButtons() : ''}
+        <div className="col">
+          <header>Condition Report</header>
+          <p>
+            <ConditionView condition={condition} wrapper />
+          </p>
+          <p>
+            <span className="label">When: </span>
+            <span className="value">{when}</span>
+          </p>
+          <p>
+            <span className="label">Where: </span>
+            <span className="value">Lat: {geolat}, Lng: {geolong}</span>
+          </p>
+          {notes ? (<p>Notes: {notes}</p>) : ''}
+        </div>
+        <div className="buttons col">
+          <MapButton latitude={geolat} longitude={geolong} />
+          {editable ? this.renderEditButtons() : ''}
+        </div>
       </div>
     )
   }
