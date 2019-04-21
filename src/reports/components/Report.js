@@ -72,17 +72,17 @@ class Report extends Component {
       <div className="report-view">
         <div className="col">
           <header>Condition Report</header>
-          <p>
+          <div>
             <ConditionView condition={condition} wrapper />
-          </p>
-          <p>
+          </div>
+          <div>
             <span className="label">When: </span>
             <span className="value">{when}</span>
-          </p>
-          <p>
+          </div>
+          <div>
             <span className="label">Where: </span>
             <span className="value">Lat: {geolat}, Lng: {geolong}</span>
-          </p>
+          </div>
           {notes ? (<p>Notes: {notes}</p>) : ''}
         </div>
         <div className="buttons col">

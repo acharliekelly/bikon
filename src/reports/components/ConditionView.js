@@ -26,6 +26,9 @@ const ConditionView = ({ condition, callback, status, wrapper }) => {
     title = 'Flood'
     src = 'flood'
     break
+  default:
+    title = 'Unknown'
+    src = 'unknown'
   }
 
   return (

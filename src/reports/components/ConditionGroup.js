@@ -52,6 +52,8 @@ class ConditionGroup extends Component {
     case 5:
       title = 'Flood'
       break
+    default:
+      title = 'Unknown'
     }
     return title
   }
