@@ -38,9 +38,9 @@ Styling library: Bootstrap (react-bootstrap)
 
 ## Screenshots
 
-[All Reports](https://i.imgur.com/Y1LzSLF.png)
-[View Report](https://i.imgur.com/PxDCmRX.png)
-[New Report](https://i.imgur.com/iAMO7GI.png)
+![All Reports](https://i.imgur.com/Y1LzSLF.png)
+![View Report](https://i.imgur.com/PxDCmRX.png)
+![New Report](https://i.imgur.com/iAMO7GI.png)
 
 ## Installation Instructions
 
