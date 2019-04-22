@@ -43,7 +43,6 @@ export const createReport = (user, params) => {
         'condition': params.condition,
         'geolat': params.geolat,
         'geolong': params.geolong,
-        'occurred': params.occurred,
         'notes': params.notes
       }
     }
@@ -62,7 +61,6 @@ export const updateReport = (user, params) => {
         'condition': params.condition,
         'geolat': params.geolat,
         'geolong': params.geolong,
-        'occurred': params.occurred,
         'notes': params.notes
       }
     }

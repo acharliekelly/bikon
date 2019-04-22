@@ -20,7 +20,6 @@ class CreateReport extends Component {
         condition: 0,
         geolat: 0,
         geolong: 0,
-        occurred: Date.now(),
         notes: null
       }
     }
