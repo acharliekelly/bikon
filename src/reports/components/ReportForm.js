@@ -41,7 +41,7 @@ class ReportForm extends Component {
               <InputGroup.Prepend>
                 <InputGroup.Text>When</InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control type="text" value={condrep.when} disabled="true" />
+              <Form.Control type="text" value={condrep.when} disabled={true} />
             </InputGroup>
           </Form.Group>
         ) : '' }
