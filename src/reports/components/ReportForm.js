@@ -31,9 +31,20 @@ class ReportForm extends Component {
   render () {
     const { validated } = this.state
     const { handleChange, handleCondition, handleCancel, condrep } = this.props
-    const { condition, geolat, geolong, occurred, notes } = condrep
+    const { condition, geolat, geolong, notes } = condrep
     return (
       <Form noValidate validated={validated} onSubmit={this.onSubmit} className="reportForm">
+        { /* if record has id, then its an edit; else its a create. only show date for edit, and then read-only */ }
+        {condrep.when ? (
+          <Form.Group>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>When</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control type="text" value={condrep.when} disabled="true" />
+            </InputGroup>
+          </Form.Group>
+        ) : '' }
         <Form.Group controlId="condition">
           <ConditionGroup selected={condition} onChange={handleCondition} />
         </Form.Group>
@@ -56,21 +67,6 @@ class ReportForm extends Component {
                 <input required name="geolong" className="form-control" type="number" min="-180.0" max="180.0" step="any"
                   value={geolong} onChange={handleChange} />
               </InputGroup>
-            </Col>
-          </Form.Row>
-        </Form.Group>
-        <Form.Group>
-          <Form.Row>
-            <Col>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>When *</InputGroup.Text>
-                </InputGroup.Prepend>
-                <input required name="occurred" type="datetime-local" value={occurred} onChange={handleChange} />
-              </InputGroup>
-            </Col>
-            <Col>
-              <span className="currentDateValue">{condrep.when}</span>
             </Col>
           </Form.Row>
         </Form.Group>

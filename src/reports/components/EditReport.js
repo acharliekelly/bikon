@@ -65,7 +65,8 @@ class EditReport extends Component {
   handleCancel = event => {
     event.preventDefault()
     const { history } = this.props
-    history.push('/reports')
+    // go back
+    history.go(-1)
   }
 
   handleMessage = msg => {

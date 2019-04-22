@@ -29,7 +29,8 @@ class CreateReport extends Component {
   handleCancel = event => {
     event.preventDefault()
     const { history } = this.props
-    history.push('/')
+    // go back
+    history.go(-1)
   }
 
   handleChange = event => {
