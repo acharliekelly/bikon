@@ -13,7 +13,7 @@ class ConditionGroup extends Component {
     super()
     this.state = {
       conditionValue: 0,
-      conditions: [0, 0, 0, 0, 0]
+      conditions: [0, 0, 0, 0, 0, 0, 0, 0]
     }
     this.setConditionOn = this.setConditionOn.bind(this)
   }
@@ -24,7 +24,7 @@ class ConditionGroup extends Component {
 
   setConditionOn (condition) {
     const options = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
       options.push(i === (condition - 1) ? 1 : 0)
     }
     this.setState({
@@ -51,6 +51,15 @@ class ConditionGroup extends Component {
       break
     case 5:
       title = 'Flood'
+      break
+    case 6:
+      title = 'Lava'
+      break
+    case 7:
+      title = 'Shark'
+      break
+    case 8:
+      title = 'Zombies'
       break
     default:
       title = 'Unknown'

@@ -2,6 +2,7 @@ import React from 'react'
 
 import ConditionImage from './ConditionImage'
 
+// Render a single icon
 const ConditionView = ({ condition, callback, status, wrapper }) => {
   let title = ''
   let src = ''
@@ -25,6 +26,18 @@ const ConditionView = ({ condition, callback, status, wrapper }) => {
   case 5:
     title = 'Flood'
     src = 'flood'
+    break
+  case 6:
+    title = 'Lava'
+    src = 'volcano'
+    break
+  case 7:
+    title = 'Shark'
+    src = 'shark'
+    break
+  case 8:
+    title = 'Zombies'
+    src = 'zombie'
     break
   default:
     title = 'Unknown'
